@@ -176,12 +176,10 @@ void DepartmentTree::displayPreorder(ostream& output) const {
 
     vector<string> result;
     preorderRecursive(root, result);
-    output << "Preorder: ";
-    for (size_t i = 0; i < result.size(); ++i) {
-        if (i > 0) output << " -> ";
-        output << result[i];
+    for(const string& department : result)
+    {
+        output << department << '\n';
     }
-    output << '\n';
 }
 
 void DepartmentTree::loadFromFile(const string& filename) {
