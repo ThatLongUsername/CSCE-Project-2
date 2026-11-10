@@ -16,3 +16,4 @@ struct Facility{
     const string& category
   );
 };
+#endif
