@@ -19,6 +19,7 @@ class CampusGraph{
     CampusGraph();
     bool addingBuildings(const string& buildingName);
     bool connectingBuilding(const string& building1, const string& building2);
+    bool buildingExists(const string& buildingName) const;
     void showGraph() const;
     void showGraphStats() const;
     void tryBFS(const string& source) const;
