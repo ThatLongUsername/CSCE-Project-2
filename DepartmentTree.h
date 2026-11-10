@@ -41,7 +41,7 @@ private:
     void destroySubtree(DepartmentNode* node);
     string trim(const string& value) const;
     string normalizeName(const string& value) const;
-    vector<string> splitFields(const string& line);
+    vector<string> splitFields(const string& line) const;
     int calculateDepth(const DepartmentNode* node) const;
     void displayHierarchyRecursive(DepartmentNode* node, int depth, ostream& output) const;
     void preorderRecursive(DepartmentNode* node, vector<string>& result) const;
