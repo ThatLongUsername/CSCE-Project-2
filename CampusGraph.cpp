@@ -40,6 +40,9 @@ bool CampusGraph::connectingBuilding(const string& building1, const string& buil
     totalConnections++;
     return true;
 }
+bool CampusGraph::buildingExists(const string& buildingName) const{
+    return locateBuilding(buildingName) != -1;
+}
 void CampusGraph::showGraph() const{
     if(buildings.empty()){
         cout << "No buildings available." << endl;
