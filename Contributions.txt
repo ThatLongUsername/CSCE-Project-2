@@ -1,0 +1,9 @@
+The contributions to this project were
+
+Ahmed: CampusGraph.cpp/h, main.cpp
+
+Samuel: DepartmentTree.cpp/h, Readme.md, debugging
+
+Manuel: Facility.cpp/h, FacilityManager.cpp/h, HashTable.cpp/h.
+
+We learned how to cooperate in hard deadlines, how to use graphing, how to do BFS and use hashTables
