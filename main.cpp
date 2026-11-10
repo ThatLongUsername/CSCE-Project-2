@@ -27,7 +27,7 @@ void displayMenu()
     cout << "Enter choice: ";
 }
 
-int main()
+int main(int arcg, char* arcv[])
 {
     FacilityManager facilityManager;
     CampusGraph campusGraph;
