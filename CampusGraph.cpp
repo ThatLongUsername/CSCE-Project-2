@@ -10,7 +10,9 @@ CampusGraph::CampusGraph(){
 }
 string CampusGraph::lowerName(string word)const{
     for(char& x : word)
-        x=tolower(x);
+        x = static_cast<char>(
+            tolower(static_cast<unsigned char>(x))
+            );
     return word;
 }
 int CampusGraph::locateBuilding(const string& buildingName) const{
