@@ -64,7 +64,7 @@ void CampusGraph::showGraphStats()const{
     cout << "Total number of buildings: " << buildings.size() <<endl;
     cout << "Total connections: " << totalConnections << endl;
     for(int i=0; i< buildings.size(); i++){
-        cout<< buildings[i]  <<": degree " << neighbors[i].size() << endl;
+        cout<< buildings[i]  <<" Degree : " << neighbors[i].size() << endl;
     }
 }
 void CampusGraph::tryBFS(const string& source) const{
