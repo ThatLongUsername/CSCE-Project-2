@@ -23,6 +23,8 @@ class CampusGraph{
     void showGraph() const;
     void showGraphStats() const;
     void tryBFS(const string& source) const;
+    void loadBuildings(const string& filename);
+    void loadConnections(const string& filename);
 
 };
 #endif
