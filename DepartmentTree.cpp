@@ -47,7 +47,7 @@ string DepartmentTree::normalizeName(const string& value) const {
     return normalized;
 }
 
-vector<string> DepartmentTree::splitFields(const string& line) {
+vector<string> DepartmentTree::splitFields(const string& line) const {
     vector<string> fields;
     stringstream stream(line);
     string field;
