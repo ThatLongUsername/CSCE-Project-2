@@ -69,11 +69,16 @@ void CampusGraph::showGraphStats()const{
         cout<< buildings[i]  <<" Degree : " << neighbors[i].size() << endl;
     }
 }
-void CampusGraph::tryBFS(const string& source) const{
+void CampusGraph::tryBFS(const string& source) const
+{
     int initiate = locateBuilding(source);
-    if(initiate ==-1)cout<< "Unknown building: "<< source<< endl;
-    return;}
-
+    if(initiate == -1)
+    {
+        cout << "Unknown building: "
+             << source
+             << endl;
+        return;
+    }
     vector<bool> alreadyVisited(buildings.size(),false);
     vector<int> spacing(buildings.size(),-1);
     queue<int> q;
