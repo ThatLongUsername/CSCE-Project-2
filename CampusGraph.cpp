@@ -66,7 +66,7 @@ void CampusGraph::showGraphStats()const{
 }
 void CampusGraph::tryBFS(const string& source) const{
     int initiate = locateBuilding(source);
-    if(initiate ==-1){cout << "Building not found."<< endl;
+    if(initiate ==-1)cout<< "Unknown building: "<< source<< endl;
     return;}
 
     vector<bool> alreadyVisited(buildings.size(),false);
