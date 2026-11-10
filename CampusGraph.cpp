@@ -4,6 +4,8 @@
 #include <iostream>
 #include <queue>
 #include <cctype>
+#include <fstream>
+#include <sstream>
 
 CampusGraph::CampusGraph(){
     totalConnections = 0;
@@ -95,4 +97,70 @@ void CampusGraph::tryBFS(const string& source) const{
         }
     }
     cout << "Reachable: "<<reach<< " of "<< buildings.size()<<" buildings"<<endl;
+}
+void CampusGraph::loadBuildings(const string& filename)
+{
+    ifstream file(filename);
+
+    if(!file.is_open())
+    {
+        cout << "Error: could not open "
+             << filename << endl;
+        return;
+    }
+
+    string line;
+
+    while(getline(file, line))
+    {
+        if(!line.empty() && line.back() == '\r')
+        {
+            line.pop_back();
+        }
+        if(line.empty())
+        {
+            continue;
+        }
+        if(line[0] == '#')
+        {
+            continue;
+        }
+        addingBuildings(line);
+    }
+}
+void CampusGraph::loadConnections(const string& filename)
+{
+    ifstream file(filename);
+
+    if(!file.is_open())
+    {
+        cout << "Error: could not open "
+             << filename << endl;
+        return;
+    }
+
+    string line;
+
+    while(getline(file, line))
+    {
+        if(!line.empty() && line.back() == '\r')
+        {
+            line.pop_back();
+        }
+
+        if(line.empty())
+        {
+            continue;
+        }
+        if(line[0] == '#')
+        {
+            continue;
+        }
+        stringstream ss(line);
+        string building1;
+        string building2;
+        getline(ss, building1, '|');
+        getline(ss, building2);
+        connectingBuilding(building1, building2);
+    }
 }
