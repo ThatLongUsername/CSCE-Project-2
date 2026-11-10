@@ -10,7 +10,9 @@ using namespace std;
 
 void displayMenu()
 {
-    cout << "\n========== SMART CAMPUS SYSTEM ==========\n";
+    cout << "\n=====================================\n";
+    cout << " SMART CAMPUS NAVIGATION SYSTEM\n";
+    cout << "=====================================\n";
     cout << "1. View all facilities\n";
     cout << "2. Search facility by ID\n";
     cout << "3. View campus graph\n";
@@ -21,7 +23,7 @@ void displayMenu()
     cout << "8. Display department hierarchy\n";
     cout << "9. Run preorder traversal\n";
     cout << "10. Exit\n";
-    cout << "=========================================\n";
+    cout << "=====================================\n";
     cout << "Enter choice: ";
 }
 
@@ -31,169 +33,197 @@ int main()
     CampusGraph campusGraph;
     DepartmentTree departmentTree;
 
-    // Load files
+    // Load facility and department data
     facilityManager.loadFromFile("data/facilities.txt");
     departmentTree.loadFromFile("data/departments.txt");
-
-    // Buildings
-    campusGraph.addingBuildings("Library");
-    campusGraph.addingBuildings("Student Union");
-    campusGraph.addingBuildings("Science Building");
-    campusGraph.addingBuildings("Engineering Building");
-    campusGraph.addingBuildings("Business Building");
-    campusGraph.addingBuildings("Gym");
-    campusGraph.addingBuildings("Observatory");
-
-    // Connections
-    campusGraph.connectingBuilding("Library", "Student Union");
-    campusGraph.connectingBuilding("Library", "Business Building");
-    campusGraph.connectingBuilding("Student Union", "Science Building");
-    campusGraph.connectingBuilding("Student Union", "Gym");
-    campusGraph.connectingBuilding("Science Building", "Engineering Building");
-    campusGraph.connectingBuilding("Business Building", "Gym");
-
+    
+    campusGraph.loadBuildings("data/buildings.txt");
+    campusGraph.loadConnections("data/connections.txt");
     int choice;
 
-    while (true)
+    while(true)
     {
         displayMenu();
 
-        if (!(cin >> choice))
+        if(!(cin >> choice))
         {
-            cout << "Invalid input.\n";
+            cout << "\nInvalid menu input.\n";
 
             cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+            cin.ignore(
+                numeric_limits<streamsize>::max(),
+                '\n'
+            );
 
             continue;
         }
 
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore(
+            numeric_limits<streamsize>::max(),
+            '\n'
+        );
 
-        switch (choice)
+        switch(choice)
         {
-        case 1:
-        {
-            facilityManager.displayFacilities(cout);
-            break;
-        }
-
-        case 2:
-        {
-            string id;
-
-            cout << "Enter Facility ID: ";
-            getline(cin, id);
-
-            facilityManager.searchFacilityByID(id, cout);
-
-            break;
-        }
-
-        case 3:
-        {
-            campusGraph.showGraph();
-            break;
-        }
-
-        case 4:
-        {
-            campusGraph.showGraphStats();
-            break;
-        }
-
-        case 5:
-        {
-            string building;
-
-            cout << "Enter starting building: ";
-            getline(cin, building);
-
-            campusGraph.tryBFS(building);
-
-            break;
-        }
-
-        case 6:
-        {
-            string departmentName;
-            string parentName;
-            string error;
-
-            cout << "Department name: ";
-            getline(cin, departmentName);
-
-            if (departmentName.empty())
+            case 1:
             {
-                cout << "Department name can't be blank.\n";
+                facilityManager.displayFacilities(cout);
                 break;
             }
 
-            if (departmentTree.isEmpty())
+            case 2:
             {
-                parentName = "NONE";
-            }
-            else
-            {
-                cout << "Parent department: ";
-                getline(cin, parentName);
+                string facilityID;
+
+                cout
+                << "Enter Facility ID: ";
+
+                getline(cin, facilityID);
+
+                facilityManager.searchFacilityByID(
+                    facilityID,
+                    cout
+                );
+
+                break;
             }
 
-            if (departmentTree.addDepartment(
+            case 3:
+            {
+                campusGraph.showGraph();
+                break;
+            }
+
+            case 4:
+            {
+                campusGraph.showGraphStats();
+                break;
+            }
+
+            case 5:
+            {
+                string building;
+
+                cout
+                << "Enter starting building: ";
+
+                getline(cin, building);
+
+                if(building.empty())
+                {
+                    cout
+                    << "Building name cannot be blank."
+                    << endl;
+                }
+                else
+                {
+                    campusGraph.tryBFS(building);
+                }
+
+                break;
+            }
+
+            case 6:
+            {
+                string departmentName;
+                string parentName;
+                string errorMessage;
+
+                cout
+                << "Department name: ";
+
+                getline(cin, departmentName);
+
+                if(departmentName.empty())
+                {
+                    cout
+                    << "Department name can't be blank."
+                    << endl;
+
+                    break;
+                }
+
+                if(departmentTree.isEmpty())
+                {
+                    parentName = "NONE";
+                }
+                else
+                {
+                    cout
+                    << "Parent department: ";
+
+                    getline(cin, parentName);
+                }
+
+                if(
+                    departmentTree.addDepartment(
+                        departmentName,
+                        parentName,
+                        errorMessage
+                    )
+                )
+                {
+                    cout
+                    << "Department added successfully."
+                    << endl;
+                }
+                else
+                {
+                    cout
+                    << errorMessage
+                    << endl;
+                }
+
+                break;
+            }
+
+            case 7:
+            {
+                string departmentName;
+
+                cout
+                << "Enter department name: ";
+
+                getline(cin, departmentName);
+
+                departmentTree.displayDepartmentSearch(
                     departmentName,
-                    parentName,
-                    error))
-            {
-                cout << "Department added successfully.\n";
-            }
-            else
-            {
-                cout << error << endl;
+                    cout
+                );
+
+                break;
             }
 
-            break;
-        }
+            case 8:
+            {
+                departmentTree.displayHierarchy(cout);
+                break;
+            }
 
-        case 7:
-        {
-            string name;
+            case 9:
+            {
+                departmentTree.displayPreorder(cout);
+                break;
+            }
 
-            cout << "Enter department name: ";
-            getline(cin, name);
+            case 10:
+            {
+                cout
+                << "Exiting program..."
+                << endl;
 
-            departmentTree.displayDepartmentSearch(name,
-                                                   cout);
+                return 0;
+            }
 
-            break;
-        }
-
-        case 8:
-        {
-            departmentTree.displayHierarchy(cout);
-
-            break;
-        }
-
-        case 9:
-        {
-            departmentTree.displayPreorder(cout);
-
-            break;
-        }
-
-        case 10:
-        {
-            cout << "Exiting program.\n";
-            return 0;
-        }
-
-        default:
-        {
-            cout << "Invalid menu option.\n";
-            break;
-        }
+            default:
+            {
+                cout
+                << "Invalid menu choice."
+                << endl;
+                break;
+            }
         }
     }
-
     return 0;
 }
