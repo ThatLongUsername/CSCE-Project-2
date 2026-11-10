@@ -155,7 +155,7 @@ void DepartmentTree::displayHierarchyRecursive(DepartmentNode* node, int depth, 
 
 void DepartmentTree::displayHierarchy(ostream& output) const {
     if (root == nullptr) {
-        output << "No departments are loade.\n";
+        output << "No departments are loaded.\n";
         return;
     }
     displayHierarchyRecursive(root, 0, output);
